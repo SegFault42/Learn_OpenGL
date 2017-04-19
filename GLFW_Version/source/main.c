@@ -14,18 +14,23 @@ int main()
 	glfwGetFramebufferSize(env.window, &width, &height);
 	glViewport(0, 0, width, height);
 
+	unsigned char *image = SOIL_load_image("container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
 	compile_shader(&env);
-
 
 	GLfloat vertices[] = {
 		// Positions         // Colors
-		1.0f, -1.0f, 0.0f,  1.0f, 0.0f, 0.0f,   // Bottom Right
-		-1.0f, -1.0f, 0.0f,  0.0f, 1.0f, 0.0f,   // Bottom Left
-		0.0f,  1.0f, 0.0f,  0.0f, 0.0f, 1.0f    // Top 
-	};    
+		0.5f, -0.5f, 0.0f,  0.5f, 0.0f, 0.0f,   // Bottom Right
+		-0.5f, -0.5f, 0.0f,  0.5f, 0.5f, 0.0f,   // Bottom Left
+		0.0f,  -1.0f, 0.0f,  0.5f, 0.0f, 0.5f    // Top 
+	};
 	GLuint indices[] = {  // Note that we start from 0!
 		0, 1, 3  // First Triangle
 		/*1, 2, 3   // Second Triangle*/
+	};
+	GLfloat texCoords[] = {
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		0.5f, 1.0f
 	};
 	GLuint VBO, VAO;
 	glGenVertexArrays(1, &VAO);
@@ -73,18 +78,17 @@ int main()
 
 		/*GLfloat time_value = glfwGetTime();*/
 		/*GLfloat green_value = (sin(time_value) / 2) + 0.5;*/
-		/*GLint vertex_color_location = glGetUniformLocation(shaderProgram, "ourColor");*/
-		/*glUniform4f(vertex_color_location, 0.0f, green_value, 0.0f, 1.0f);*/
+		/*GLfloat blue_value = (sin(time_value) / 2) + 0.5;*/
+		/*GLint vertex_color_location = glGetUniformLocation(env.shader.shaderProgram, "ourColor");*/
+		/*glUniform4f(vertex_color_location, 0.0f, green_value, blue_value, 1.0f);*/
 
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
-		/*glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);*/
 		glBindVertexArray(0);
 
 		// Swap the screen buffers
 		glfwSwapBuffers(env.window);
 	}
-	// Properly de-allocate all resources once they've outlived their purpose
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	/*glDeleteBuffers(1, &EBO);*/

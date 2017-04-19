@@ -10,6 +10,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <errno.h>
+# include "../../SimpleOpenGLImageLibrary/src/SOIL.h"
 #include "../include/libft.h"
 
 typedef struct		s_shader
