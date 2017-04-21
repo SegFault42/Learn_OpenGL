@@ -2,8 +2,8 @@
 
 bool	init_glfw(t_env *env)
 {
-	env->width = 800;
-	env->height = 600;
+	env->width = 800 * 2;
+	env->height = 600 * 2;
 	if (glfwInit() == GLFW_FALSE)
 	{
 		dprintf(2, "glfwInit Failure");
